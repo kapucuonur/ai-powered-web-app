@@ -6,7 +6,7 @@ export async function generateWebsiteContent(prompt: string) {
   }
 
   const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-  const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro" });
+  const model = genAI.getGenerativeModel({ model: "gemini-3-pro-preview" });
 
   const systemPrompt = `
     You are an expert web designer and copywriter.
