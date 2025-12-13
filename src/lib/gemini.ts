@@ -1,14 +1,14 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
 export async function generateWebsiteContent(prompt: string) {
-    if (!process.env.GEMINI_API_KEY) {
-        throw new Error("Missing GEMINI_API_KEY environment variable");
-    }
+  if (!process.env.GEMINI_API_KEY) {
+    throw new Error("Missing GEMINI_API_KEY environment variable");
+  }
 
-    const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-    const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+  const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+  const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
-    const systemPrompt = `
+  const systemPrompt = `
     You are an expert web designer and copywriter.
     Your goal is to generate website content based on a user prompt.
     Return ONLY valid JSON. Do not include markdown formatting like \`\`\`json.
@@ -32,17 +32,17 @@ export async function generateWebsiteContent(prompt: string) {
     Make the copy professional, engaging, and premium.
   `;
 
-    const result = await model.generateContent(`${systemPrompt}\n\nUser Prompt: ${prompt}`);
-    const response = await result.response;
-    const text = response.text();
+  const result = await model.generateContent(`${systemPrompt}\n\nUser Prompt: ${prompt}`);
+  const response = await result.response;
+  const text = response.text();
 
-    // Clean up if model returns markdown
-    const jsonStr = text.replace(/```json/g, "").replace(/```/g, "").trim();
+  // Clean up if model returns markdown
+  const jsonStr = text.replace(/```json/g, "").replace(/```/g, "").trim();
 
-    try {
-        return JSON.parse(jsonStr);
-    } catch (e) {
-        console.error("Failed to parse Gemini response:", text);
-        throw new Error("Failed to generate valid JSON content");
-    }
+  try {
+    return JSON.parse(jsonStr);
+  } catch (e) {
+    console.error("Failed to parse Gemini response:", text);
+    throw new Error("Failed to generate valid JSON content");
+  }
 }
