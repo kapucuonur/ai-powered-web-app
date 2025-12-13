@@ -82,7 +82,7 @@ export default function Home() {
                 value={prompt}
                 onChange={(e) => setPrompt(e.target.value)}
                 placeholder="Describe your website (e.g., 'A modern portfolio for a photographer with dark mode')"
-                className="flex-1 bg-transparent border-none text-white placeholder:text-gray-500 focus:ring-0 px-4 py-4 text-lg outline-none"
+                className="flex-1 bg-transparent border-none text-white placeholder:text-gray-400 focus:ring-0 px-4 py-4 text-lg outline-none"
               />
               <button
                 type="submit"

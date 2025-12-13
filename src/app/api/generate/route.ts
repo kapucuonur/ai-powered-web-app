@@ -17,8 +17,19 @@ export async function POST(request: Request) {
         return NextResponse.json(content);
     } catch (error) {
         console.error("Generation error:", error);
+
+        const errorMessage = error instanceof Error ? error.message : "Failed to generate content";
+
+        // Handle Gemini Quota Limits
+        if (errorMessage.includes("429") || errorMessage.includes("Quota") || errorMessage.includes("quota")) {
+            return NextResponse.json(
+                { error: "Gemini API Quota Exceeded. Please try again later.", details: errorMessage },
+                { status: 429 }
+            );
+        }
+
         return NextResponse.json(
-            { error: error instanceof Error ? error.message : "Failed to generate content" },
+            { error: errorMessage },
             { status: 500 }
         );
     }
