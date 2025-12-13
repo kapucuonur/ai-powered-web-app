@@ -18,7 +18,7 @@ export async function POST(request: Request) {
     } catch (error) {
         console.error("Generation error:", error);
         return NextResponse.json(
-            { error: "Failed to generate content" },
+            { error: error instanceof Error ? error.message : "Failed to generate content" },
             { status: 500 }
         );
     }
