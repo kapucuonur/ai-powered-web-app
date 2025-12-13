@@ -27,7 +27,10 @@ function BuilderContent() {
                     body: JSON.stringify({ prompt }),
                 });
 
-                if (!res.ok) throw new Error("Generation failed");
+                if (!res.ok) {
+                    const errorData = await res.json().catch(() => ({})); // Try to parse error
+                    throw new Error(errorData.error || "Generation failed");
+                }
 
                 const data = await res.json();
                 setGeneratedContent(data);
@@ -39,7 +42,8 @@ function BuilderContent() {
             } catch (error) {
                 console.error("Content Generation Error:", error);
                 setStatus("complete"); // Allow user to see what happened or retry
-                alert("We couldn't generate your site this time. Please check your API key or try a different prompt.");
+                // Show the actual error message from the server
+                alert(`Error: ${error instanceof Error ? error.message : "Something went wrong"}`);
             }
         };
 
