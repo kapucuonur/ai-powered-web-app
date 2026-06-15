@@ -21,8 +21,10 @@ export default function ModernPortfolio({ content }: { content?: any }) {
 
     // Extract initials for logo
     const getInitials = (name: string) => {
+        if (!name) return "";
         return name
             .split(" ")
+            .filter(Boolean)
             .map((n) => n[0])
             .join(".")
             .toUpperCase() + ".";
@@ -101,8 +103,8 @@ export default function ModernPortfolio({ content }: { content?: any }) {
                         Portfolio 2026
                     </span>
                     <h1 className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tight mb-8 leading-[0.95] text-white">
-                        {data.role.split(" ").map((word: string, idx: number) => {
-                            if (idx === data.role.split(" ").length - 1) {
+                        {(data.role || "").split(" ").map((word: string, idx: number) => {
+                            if (idx === (data.role || "").split(" ").length - 1) {
                                 return <span key={idx} className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-400">{word} </span>;
                             }
                             return word + " ";
