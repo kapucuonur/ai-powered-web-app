@@ -85,13 +85,18 @@ function BuilderContent() {
 
     return (
         <>
-            {/* Floating Toolbar for Builder (Mockup) */}
-            <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-[100] bg-black/80 backdrop-blur-lg border border-white/10 rounded-full px-6 py-3 flex items-center gap-4 shadow-2xl">
-                <div className="h-2 w-2 rounded-full bg-green-500" />
-                <span className="text-sm font-medium text-white">Generated from: "{prompt}"</span>
-                <div className="h-4 w-[1px] bg-white/20" />
-                <button className="text-xs font-medium text-purple-400 hover:text-purple-300" onClick={() => window.location.reload()}>Regenerate</button>
-                <button className="text-xs font-medium text-white hover:text-gray-300">Publish</button>
+            {/* Floating Toolbar for Builder (Responsive Design) */}
+            <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-[100] w-[92%] max-w-xl md:w-auto bg-black/80 backdrop-blur-xl border border-white/10 rounded-2xl md:rounded-full px-4 py-3 md:px-6 md:py-3 flex flex-wrap md:flex-nowrap items-center justify-center gap-3 md:gap-4 shadow-[0_10px_40px_rgba(0,0,0,0.8)]">
+                <div className="flex items-center gap-2">
+                    <div className="h-2 w-2 rounded-full bg-green-500 animate-pulse" />
+                    <span className="text-xs md:text-sm font-medium text-gray-300">Generated from: <span className="text-white font-semibold">"{prompt}"</span></span>
+                </div>
+                <div className="h-4 w-[1px] bg-white/10 hidden md:block" />
+                <div className="flex items-center gap-4 w-full md:w-auto justify-center border-t border-white/5 pt-2 md:pt-0 md:border-t-0">
+                    <button className="text-xs font-medium text-purple-400 hover:text-purple-300 transition-colors duration-200" onClick={() => window.location.reload()}>Regenerate</button>
+                    <div className="h-3 w-[1px] bg-white/15" />
+                    <button className="text-xs font-medium text-white hover:text-gray-300 transition-colors duration-200">Publish</button>
+                </div>
             </div>
 
             {/* The Generated Site */}
