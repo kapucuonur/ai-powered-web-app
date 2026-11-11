@@ -45,3 +45,5 @@ next-env.d.ts
 
 .history
 /history
+# VS Code Local History extension
+.history/
